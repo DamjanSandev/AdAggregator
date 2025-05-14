@@ -1,0 +1,47 @@
+version: '3'
+services:
+  db:
+    image: postgres:latest
+    restart: always
+    environment:
+      - POSTGRES_DB=db
+      - POSTGRES_USER=project
+      - POSTGRES_PASSWORD=project123
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./Backend/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./Backend/views.sql:/docker-entrypoint-initdb.d/views.sql
+    ports:
+      - "5432:5432"
+
+#  frontEnd:
+#    build: ./Web
+#    ports:
+#        - "4200:80"
+
+  spring-backend:
+    build: ./Backend
+    ports:
+      - "9090:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/db
+      SPRING_DATASOURCE_USERNAME: project
+      SPRING_DATASOURCE_PASSWORD: project123
+    depends_on:
+      - db
+
+#  python-scraper:
+#    build: ./scraper-python
+#    ports:
+#      - "8001:8001"
+#    environment:
+#      DB_HOST: db
+#      DB_NAME: yourdb
+#      DB_USER: youruser
+#      DB_PASS: yourpass
+#      DB_PORT: 5432
+#    depends_on:
+#      - db
+
+volumes:
+  pgdata:
