@@ -1,0 +1,5 @@
+# Scraper/.dockerignore
+.venv
+__pycache__
+*.pyc
+.idea

@@ -30,18 +30,14 @@ services:
     depends_on:
       - db
 
-#  python-scraper:
-#    build: ./scraper-python
-#    ports:
-#      - "8001:8001"
-#    environment:
-#      DB_HOST: db
-#      DB_NAME: yourdb
-#      DB_USER: youruser
-#      DB_PASS: yourpass
-#      DB_PORT: 5432
-#    depends_on:
-#      - db
+  python-scraper:
+    build: ./Scraper
+    ports:
+      - "8001:8001"
+    env_file:
+      - ./Scraper/.env
+    depends_on:
+      - db
 
 volumes:
   pgdata:

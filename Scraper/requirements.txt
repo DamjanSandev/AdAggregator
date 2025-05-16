@@ -1,0 +1,8 @@
+fastapi
+uvicorn[standard]
+transformers
+torch
+python-dotenv
+beautifulsoup4
+protobuf
+sentencepiece
