@@ -1,4 +1,4 @@
-FROM python:3.11-slim
+FROM python:3.11
 
 RUN apt-get update \
  && apt-get install -y --no-install-recommends \
@@ -13,5 +13,4 @@ RUN pip install --upgrade pip \
 
 COPY . .
 
-# run FastAPI
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8001"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8001","--reload"]

@@ -36,6 +36,8 @@ services:
       - "8001:8001"
     env_file:
       - ./Scraper/.env
+    volumes:
+      - ./Scraper:/app
     depends_on:
       - db
 
