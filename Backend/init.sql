@@ -12,3 +12,10 @@ CREATE TABLE app_users
     is_enabled                 BOOLEAN DEFAULT TRUE,
     role                       role
 );
+
+CREATE TABLE IF NOT EXISTS ads_imported
+(
+    id         SERIAL PRIMARY KEY,
+    url        TEXT UNIQUE NOT NULL,
+    scraped_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

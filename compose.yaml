@@ -14,10 +14,10 @@ services:
     ports:
       - "5432:5432"
 
-#  frontEnd:
-#    build: ./Web
-#    ports:
-#        - "4200:80"
+  #  frontEnd:
+  #    build: ./Web
+  #    ports:
+  #        - "4200:80"
 
   spring-backend:
     build: ./Backend
@@ -38,8 +38,15 @@ services:
       - ./Scraper/.env
     volumes:
       - ./Scraper:/app
+      - hf_cache:/root/.cache/huggingface
+    environment:
+      - PYTHONUNBUFFERED=1
     depends_on:
-      - db
+        - db
+        - spring-backend
+    restart: unless-stopped
 
 volumes:
   pgdata:
+  hf_cache:
+
