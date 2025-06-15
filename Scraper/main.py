@@ -5,7 +5,6 @@ from apscheduler.schedulers.background import BackgroundScheduler
 
 app = FastAPI()
 
-
 # if __name__ == "__main__":
 #     import uvicorn
 #     uvicorn.run("main:app", host="0.0.0.0", port=8001, reload=True)
@@ -16,7 +15,7 @@ async def root():
 
 @app.get("/hello/{name}")
 async def say_hello(name: str):
-    return {"message": f"Hello {name}"
+    return {"message": f"Hello {name}"}
 
 
 @app.get("/health")
@@ -25,9 +24,8 @@ async def health():
 
 
 @app.post("/scrape-all")
-async def scrape_all(pages: int = 10):
+async def scrape_all(pages: int = 1):
     return extract_from_first_n_pages(pages)
-
 
 # @app.on_event("startup")
 # def start_scheduler():

@@ -9,7 +9,9 @@ LISTING_LINKS = ".SearchAdTitle"
 LABEL_SELECTOR = "div.col-5"
 VALUE_SELECTOR = "div.col-7"
 PHOTO_SELECTOR = ".ad-image-preview-table img"
-DESCRIPTION_SELECTOR = "div.card-body.px-0"
+DESCRIPTION_SELECTOR = ("body > div.container.body-content > "
+                        "div:nth-child(7) > div.row.mt-2 > div > div > div.card-body.px-0 > div:nth-child(4) "
+                        "> div.col-8 > p:nth-child(3)")
 
 FIELD_MAP = {
     "марка": "make",
@@ -119,7 +121,7 @@ def get_first_n_urls(n: int = 10) -> list[str]:
 
 
 # TODO change n=10
-def extract_from_first_n_pages(n: int = 2) -> list[dict]:
+def extract_from_first_n_pages(n: int = 1) -> list[dict]:
     enriched_ads: list = []
     urls = get_first_n_urls(n)
     for url in urls:
