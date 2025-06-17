@@ -17,14 +17,18 @@ public class Ad {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false)
     private String brand;
+    @Column(nullable = false)
     private String model;
+    @Column(nullable = false)
     private Integer year;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "fuel_type", nullable = false)
     private FuelType fuelType;
 
+    @Column(nullable = false)
     private Integer kilometers;
 
     @Enumerated(EnumType.STRING)
@@ -35,14 +39,17 @@ public class Ad {
     @Column(nullable = false)
     private BodyType bodyType;
 
+    @Column(nullable = false)
     private String color;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private RegistrationType registrationType;
 
+    @Column(nullable = false)
     private Date registeredUntil;
 
+    @Column(nullable = false)
     private String enginePower;
 
     @Enumerated(EnumType.STRING)
@@ -51,8 +58,26 @@ public class Ad {
 
     private String description;
 
+    @Column(nullable = false)
     private String photoUrl;
 
     @Column(name = "created_at", updatable = false)
     private Instant createdAt = Instant.now();
+
+    public Ad(String brand, String model, Integer year, FuelType fuelType, Integer kilometers, TransmissionType transmission, BodyType bodyType, String color, RegistrationType registrationType, Date registeredUntil, String enginePower, EmissionType emissionType, String description, String photoUrl) {
+        this.brand = brand;
+        this.model = model;
+        this.year = year;
+        this.fuelType = fuelType;
+        this.kilometers = kilometers;
+        this.transmission = transmission;
+        this.bodyType = bodyType;
+        this.color = color;
+        this.registrationType = registrationType;
+        this.registeredUntil = registeredUntil;
+        this.enginePower = enginePower;
+        this.emissionType = emissionType;
+        this.description = description;
+        this.photoUrl = photoUrl;
+    }
 }
