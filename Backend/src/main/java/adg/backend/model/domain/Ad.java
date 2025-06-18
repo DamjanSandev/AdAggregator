@@ -18,6 +18,8 @@ public class Ad {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
+    private String url;
+    @Column(nullable = false)
     private String brand;
     @Column(nullable = false)
     private String model;
@@ -64,7 +66,8 @@ public class Ad {
     @Column(name = "created_at", updatable = false)
     private Instant createdAt = Instant.now();
 
-    public Ad(String brand, String model, Integer year, FuelType fuelType, Integer kilometers, TransmissionType transmission, BodyType bodyType, String color, RegistrationType registrationType, Date registeredUntil, String enginePower, EmissionType emissionType, String description, String photoUrl) {
+    public Ad(String url, String brand, String model, Integer year, FuelType fuelType, Integer kilometers, TransmissionType transmission, BodyType bodyType, String color, RegistrationType registrationType, Date registeredUntil, String enginePower, EmissionType emissionType, String description, String photoUrl) {
+        this.url = url;
         this.brand = brand;
         this.model = model;
         this.year = year;

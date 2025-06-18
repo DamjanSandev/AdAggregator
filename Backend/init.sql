@@ -23,11 +23,12 @@ CREATE TABLE IF NOT EXISTS ads_imported
 CREATE TABLE IF NOT EXISTS ads
 (
     id               BIGINT PRIMARY KEY,
+    url              TEXT NOT NULL,
     brand            TEXT NOT NULL,
     model            TEXT NOT NULL,
     year             INT  NOT NULL,
     fuelType         TEXT NOT NULL,
-    kilometers       INT NOT NULL,
+    kilometers       INT  NOT NULL,
     transmission     TEXT NOT NULL,
     bodyType         TEXT NOT NULL,
     color            TEXT NOT NULL,

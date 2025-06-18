@@ -7,6 +7,7 @@ import lombok.Data;
 import java.util.Date;
 
 public record AdRequestDto(
+        String url,
         String brand,
         String model,
         Integer year,
@@ -23,7 +24,7 @@ public record AdRequestDto(
         String photoUrl
 ) {
     public Ad toAd() {
-        return new Ad(brand, model, year,
+        return new Ad(url, brand, model, year,
                 fuelType, kilometers, transmission, bodyType,
                 color, registrationType, registeredUntil,
                 enginePower, emissionType, description, photoUrl);

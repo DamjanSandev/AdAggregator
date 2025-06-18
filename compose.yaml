@@ -22,7 +22,7 @@ services:
   spring-backend:
     build: ./Backend
     ports:
-      - "9090:8080"
+      - "9090:9090"
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/db
       SPRING_DATASOURCE_USERNAME: project

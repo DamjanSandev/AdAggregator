@@ -1,6 +1,8 @@
 import requests
 from bs4 import BeautifulSoup
 from extractor import extract_features
+from datetime import datetime
+
 
 BASE_DOMAIN = "https://reklama5.mk"
 BASE_URL = "https://reklama5.mk/Search?city=&cat=24&q="
@@ -14,22 +16,83 @@ DESCRIPTION_SELECTOR = ("body > div.container.body-content > "
                         "> div.col-8 > p:nth-child(3)")
 
 FIELD_MAP = {
-    "марка": "make",
+    "марка": "brand",
     "модел": "model",
     "година": "year",
-    "гориво": "fuel_type",
+    "гориво": "fuelType",
     "километри": "kilometers",
     "менувач": "transmission",
+    "каросерија": "bodyType",
     "боја": "color",
-    "каросерија": "body_type",
-    "регистрирана до": "registered_until",
-    "сила на моторот": "power_kw"
+    "тип на регистрација": "registrationType",
+    "регистрирана до": "registeredUntil",
+    "сила на моторот": "enginePower",
+    "тип на емисија": "emissionType",
+    "дескрипција": "description",
+    "линк до слика": "photoUrl"
 }
+
+FUEL_TYPE_MAP = {
+    "Дизел": "DIESEL",
+    "Бензин": "PETROL",
+    "Бензин / Плин": "PETROL_LPG",
+    "Хибрид (Дизел / Електро)": "HYBRID_DIESEL_ELECTRIC",
+    "Хибрид (Бензин / Електро)": "HYBRID_PETROL_ELECTRIC",
+    "Електричен автомобил": "ELECTRIC"
+}
+
+TRANSMISSION_MAP = {
+    "Рачен": "MANUAL",
+    "Автоматски": "AUTOMATIC",
+    "Полуавтоматски": "SEMI_AUTOMATIC"
+}
+
+REG_TYPE_MAP = {
+    "Македонска": "MACEDONIAN",
+    "Странска": "FOREIGN"
+}
+
+EMISSION_TYPE_MAP = {
+    "Еуро 1": "EURO1",
+    "Еуро 2": "EURO2",
+    "Еуро 3": "EURO3",
+    "Еуро 4": "EURO4",
+    "Еуро 5": "EURO5",
+    "Еуро 6": "EURO6",
+    "Останато": "Останато"
+}
+
+BODY_TYPE_MAP = {
+    "Maли градски": "SMALL_CITY_CAR",
+    "Хеџбек": "HATCHBACK",
+    "Седани": "SEDAN",
+    "Каравани": "CARAVAN",
+    "Моноволумен": "MPV",
+    "Теренци - SUV": "SUV",
+    "Кабриолети": "CABRIOLET",
+    "Купеа": "COUPE",
+    "Останато": "OTHER"
+}
+
+
+def normalize_enum_type(mk_value: str, enum_map: dict) -> str:
+    return enum_map.get(mk_value.strip(), "UNKNOWN")
 
 
 def normalize_numeric(val: str) -> int:
     return int(val.replace(".", "").replace(",", "").strip())
 
+def normalize_registered_until(raw: str) -> str:
+    raw = raw.strip()
+    try:
+        return datetime.strptime(raw, "%d.%m.%Y").strftime("%Y-%m-%d")
+    except ValueError:
+        pass
+
+    try:
+        return datetime.strptime(raw, "%m.%Y").replace(day=1).strftime("%Y-%m-%d")
+    except ValueError:
+        return raw
 
 def get_ad_urls(page: int = 1) -> list[str]:
     resp = requests.get(f"{BASE_URL}&page={page}")
@@ -56,8 +119,20 @@ def parse_structured_fields(soup: BeautifulSoup) -> dict:
                 fields[key] = int(val)
             elif key == "kilometers":
                 fields[key] = normalize_numeric(val)
-            elif key == "power_kw":
+            elif key == "enginePower":
                 fields[key] = int(val.split(" ")[0])
+            elif key == "fuelType":
+                fields[key] = normalize_enum_type(val, FUEL_TYPE_MAP)
+            elif key == "transmission":
+                fields[key] = normalize_enum_type(val, TRANSMISSION_MAP)
+            elif key == "registrationType":
+                fields[key] = normalize_enum_type(val, REG_TYPE_MAP)
+            elif key == "emissionType":
+                fields[key] = normalize_enum_type(val, EMISSION_TYPE_MAP)
+            elif key == "bodyType":
+                fields[key] = normalize_enum_type(val, BODY_TYPE_MAP)
+            elif key == "registeredUntil":
+                fields[key] = normalize_registered_until(val)
             else:
                 fields[key] = val
         except Exception as e:
@@ -75,9 +150,9 @@ def extract_description(soup: BeautifulSoup) -> str | None:
 
 def enrich_with_llm_fields(description: str, base_fields: dict) -> dict:
     llm_json = extract_features(description)
-    for key, value in llm_json.items():
-        if key not in base_fields or not base_fields[key]:
-            base_fields[key] = value
+    # for key, value in llm_json.items():
+    #     if key not in base_fields or not base_fields[key]:
+    #         base_fields[key] = value
     return base_fields
 
 
@@ -108,7 +183,7 @@ def fetch_and_extract_features(ad_url: str) -> dict:
 
     photo_url = parse_photo_url(soup)
     if photo_url:
-        fields["photo_url"] = photo_url
+        fields["photoUrl"] = photo_url
 
     return fields
 
