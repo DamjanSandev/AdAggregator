@@ -17,7 +17,7 @@ public class Ad {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false)
+    @Column(nullable = false, length = 512)
     private String url;
     @Column(nullable = false)
     private String brand;
@@ -58,9 +58,10 @@ public class Ad {
     @Column(nullable = false)
     private EmissionType emissionType;
 
+    @Column(length = 2048)
     private String description;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 512)
     private String photoUrl;
 
     @Column(name = "created_at", updatable = false)

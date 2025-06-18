@@ -24,12 +24,10 @@ FIELD_MAP = {
     "менувач": "transmission",
     "каросерија": "bodyType",
     "боја": "color",
-    "тип на регистрација": "registrationType",
+    "регистрација": "registrationType",
     "регистрирана до": "registeredUntil",
     "сила на моторот": "enginePower",
-    "тип на емисија": "emissionType",
-    "дескрипција": "description",
-    "линк до слика": "photoUrl"
+    "класа на емисија": "emissionType",
 }
 
 FUEL_TYPE_MAP = {
@@ -59,7 +57,7 @@ EMISSION_TYPE_MAP = {
     "Еуро 4": "EURO4",
     "Еуро 5": "EURO5",
     "Еуро 6": "EURO6",
-    "Останато": "Останато"
+    "Останато": "OTHER"
 }
 
 BODY_TYPE_MAP = {
@@ -108,6 +106,7 @@ def parse_structured_fields(soup: BeautifulSoup) -> dict:
 
     for label, value in zip(labels, values):
         raw_key = label.get_text(strip=True).lower().rstrip(":")
+        raw_key = raw_key.translate(str.maketrans("k", "к"))
         val = value.get_text(strip=True)
         key = FIELD_MAP.get(raw_key)
 
@@ -120,7 +119,7 @@ def parse_structured_fields(soup: BeautifulSoup) -> dict:
             elif key == "kilometers":
                 fields[key] = normalize_numeric(val)
             elif key == "enginePower":
-                fields[key] = int(val.split(" ")[0])
+                fields[key] = val.split(" ")[0]
             elif key == "fuelType":
                 fields[key] = normalize_enum_type(val, FUEL_TYPE_MAP)
             elif key == "transmission":
@@ -150,9 +149,9 @@ def extract_description(soup: BeautifulSoup) -> str | None:
 
 def enrich_with_llm_fields(description: str, base_fields: dict) -> dict:
     llm_json = extract_features(description)
-    # for key, value in llm_json.items():
-    #     if key not in base_fields or not base_fields[key]:
-    #         base_fields[key] = value
+    for key, value in llm_json.items():
+        if key not in base_fields or not base_fields[key]:
+            base_fields[key] = value
     return base_fields
 
 
@@ -179,7 +178,7 @@ def fetch_and_extract_features(ad_url: str) -> dict:
     description = extract_description(soup)
     if description:
         fields["description"] = description
-        fields = enrich_with_llm_fields(description, fields)
+        # fields = enrich_with_llm_fields(description, fields)
 
     photo_url = parse_photo_url(soup)
     if photo_url:

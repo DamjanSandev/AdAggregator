@@ -3,7 +3,6 @@ package adg.backend.service.application;
 import adg.backend.dto.request.AdRequestDto;
 import adg.backend.dto.response.AdResponseDto;
 import adg.backend.dto.search.SearchAdDto;
-import adg.backend.model.domain.Ad;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

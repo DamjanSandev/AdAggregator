@@ -1,4 +1,4 @@
-package adg.backend.web.controller;
+package adg.backend.web.controllers;
 
 import adg.backend.dto.request.AdRequestDto;
 import adg.backend.dto.response.AdResponseDto;
