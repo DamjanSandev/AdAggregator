@@ -17,12 +17,16 @@ public class Ad {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(nullable = false, length = 512)
     private String url;
+
     @Column(nullable = false)
     private String brand;
+
     @Column(nullable = false)
     private String model;
+
     @Column(nullable = false)
     private Integer year;
 
@@ -38,30 +42,30 @@ public class Ad {
     private TransmissionType transmission;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(name = "body_type", nullable = false)
     private BodyType bodyType;
 
     @Column(nullable = false)
     private String color;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(name = "registration_type", nullable = false)
     private RegistrationType registrationType;
 
-    @Column(nullable = false)
+    @Column(name = "registered_until", nullable = false)
     private Date registeredUntil;
 
-    @Column(nullable = false)
+    @Column(name = "engine_power", nullable = false)
     private String enginePower;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(name = "emission_type", nullable = false)
     private EmissionType emissionType;
 
     @Column(length = 2048)
     private String description;
 
-    @Column(nullable = false, length = 512)
+    @Column(name = "photo_url", nullable = false, length = 512)
     private String photoUrl;
 
     @Column(name = "created_at", updatable = false)

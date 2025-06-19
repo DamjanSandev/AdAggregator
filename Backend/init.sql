@@ -22,28 +22,28 @@ CREATE TABLE IF NOT EXISTS ads_imported
 
 CREATE TABLE IF NOT EXISTS ads
 (
-    id               BIGINT PRIMARY KEY,
-    url              TEXT NOT NULL,
-    brand            TEXT NOT NULL,
-    model            TEXT NOT NULL,
-    year             INT  NOT NULL,
-    fuelType         TEXT NOT NULL,
-    kilometers       INT  NOT NULL,
-    transmission     TEXT NOT NULL,
-    bodyType         TEXT NOT NULL,
-    color            TEXT NOT NULL,
-    registrationType TEXT NOT NULL,
-    registeredUntil  DATE NOT NULL,
-    enginePower      TEXT NOT NULL,
-    emissionType     TEXT NOT NULL,
-    description      TEXT,
+    id                BIGSERIAL PRIMARY KEY,
+    url               TEXT NOT NULL,
+    brand             TEXT NOT NULL,
+    model             TEXT NOT NULL,
+    year              INT  NOT NULL,
+    fuel_type         TEXT NOT NULL,
+    kilometers        INT  NOT NULL,
+    transmission      TEXT NOT NULL,
+    body_type         TEXT NOT NULL,
+    color             TEXT NOT NULL,
+    registration_type TEXT NOT NULL,
+    registered_until  DATE NOT NULL,
+    engine_power      TEXT NOT NULL,
+    emission_type     TEXT NOT NULL,
+    description       TEXT,
 --     price_eur        FLOAT,
 --     location         TEXT NOT NULL,
 --     engine_volume    FLOAT,
 --     features         TEXT,
 --     contact          TEXT,
-    photo_url        TEXT NOT NULL,
-    created_at       TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+    photo_url         TEXT NOT NULL,
+    created_at        TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS interactions
