@@ -3,6 +3,7 @@ package adg.backend.service.domain;
 import adg.backend.model.domain.Ad;
 import adg.backend.model.domain.Interaction;
 import adg.backend.model.domain.User;
+import adg.backend.model.enumerations.InteractionType;
 
 
 import java.util.List;
@@ -12,9 +13,9 @@ public interface InteractionService {
 
     Optional<Interaction> findById(Long id);
 
-    List<Interaction> findAllByUser(User user);
+    List<Interaction> findAllByUserAndInteraction(User user, InteractionType interactionType);
 
-    List<Interaction> findByUserAndAd(User user, Ad ad);
+    Optional<Interaction> findByUserAndAdAndInteraction(User user, Ad ad, InteractionType interactionType);
 
     Optional<Interaction> save(Interaction interaction);
 

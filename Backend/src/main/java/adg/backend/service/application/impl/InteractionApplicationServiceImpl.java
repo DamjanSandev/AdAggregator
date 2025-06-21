@@ -4,6 +4,7 @@ import adg.backend.dto.request.InteractionRequestDTO;
 import adg.backend.dto.response.InteractionResponseDto;
 import adg.backend.model.domain.Ad;
 import adg.backend.model.domain.User;
+import adg.backend.model.enumerations.InteractionType;
 import adg.backend.model.exceptions.AdNotFoundException;
 import adg.backend.model.exceptions.UserNotFoundException;
 import adg.backend.service.application.InteractionApplicationService;
@@ -34,20 +35,19 @@ public class InteractionApplicationServiceImpl implements InteractionApplication
     }
 
     @Override
-    public List<InteractionResponseDto> findAllByUser(String userName) {
+    public List<InteractionResponseDto> findAllByUserAndInteraction(String userName, InteractionType interactionType) {
         User user = userService.findByUsername(userName)
                 .orElseThrow(() -> new UserNotFoundException(userName));
-        return interactionService.findAllByUser(user).stream().map(InteractionResponseDto::from).collect(Collectors.toList());
+        return interactionService.findAllByUserAndInteraction(user, interactionType).stream().map(InteractionResponseDto::from).collect(Collectors.toList());
     }
 
     @Override
-    public List<InteractionResponseDto> findByUserAndAd(String userName, Long adId) {
+    public Optional<InteractionResponseDto> findByUserAndAdAndInteraction(String userName, Long adId, InteractionType interactionType) {
         User user = userService.findByUsername(userName)
                 .orElseThrow(() -> new UserNotFoundException(userName));
         Ad ad = adService.findById(adId)
                 .orElseThrow(() -> new AdNotFoundException(adId));
-        return interactionService.findByUserAndAd(user, ad).stream()
-                .map(InteractionResponseDto::from).collect(Collectors.toList());
+        return interactionService.findByUserAndAdAndInteraction(user, ad, interactionType).map(InteractionResponseDto::from);
     }
 
     @Override

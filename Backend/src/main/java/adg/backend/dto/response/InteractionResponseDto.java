@@ -16,7 +16,7 @@ public record InteractionResponseDto(
         return new InteractionResponseDto(
                 ResponseUserDto.from(interaction.getUser()),
                 AdResponseDto.from(interaction.getAd()),
-                interaction.getInteractionType(),
+                interaction.getInteraction_type(),
                 interaction.getStrength()
         );
     }

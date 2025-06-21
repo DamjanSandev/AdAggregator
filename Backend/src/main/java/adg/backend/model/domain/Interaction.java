@@ -33,8 +33,8 @@ public class Interaction {
     private Ad ad;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "event_type", nullable = false)
-    private InteractionType interactionType;
+    @Column(name = "interaction_type", nullable = false)
+    private InteractionType interaction_type;
 
     @Column(nullable = false)
     private int strength;
@@ -46,7 +46,7 @@ public class Interaction {
     public Interaction(User user, Ad ad, InteractionType interactionType) {
         this.user = user;
         this.ad = ad;
-        this.interactionType = interactionType;
+        this.interaction_type = interactionType;
         this.strength=interactionType.strength;
     }
 }

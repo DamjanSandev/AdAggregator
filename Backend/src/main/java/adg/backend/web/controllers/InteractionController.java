@@ -2,11 +2,13 @@ package adg.backend.web.controllers;
 
 import adg.backend.dto.request.InteractionRequestDTO;
 import adg.backend.dto.response.InteractionResponseDto;
+import adg.backend.model.enumerations.InteractionType;
 import adg.backend.service.application.InteractionApplicationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/interactions")
@@ -24,16 +26,18 @@ public class InteractionController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/findByUser")
-    public ResponseEntity<List<InteractionResponseDto>> findAllByUser(@RequestParam String username) {
-        return ResponseEntity.ok(interactionApplicationService.findAllByUser(username));
+    @GetMapping("/findByUserAndInteraction")
+    public ResponseEntity<List<InteractionResponseDto>> findAllByUserAndInteraction(@RequestParam String username, @RequestParam InteractionType interactionType) {
+        return ResponseEntity.ok(interactionApplicationService.findAllByUserAndInteraction(username, interactionType));
     }
 
-    @GetMapping("/findByUserAndAd")
-    public ResponseEntity<List<InteractionResponseDto>> findAllByUserAndAd(
+    @GetMapping("/findByUserAndAdAndInteraction")
+    public ResponseEntity<InteractionResponseDto> findAllByUserAndAdAndInteraction(
             @RequestParam String username,
-            @RequestParam Long adId) {
-        return ResponseEntity.ok(interactionApplicationService.findByUserAndAd(username, adId));
+            @RequestParam Long adId,
+            @RequestParam InteractionType interactionType) {
+        return interactionApplicationService.findByUserAndAdAndInteraction(username, adId, interactionType).map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping("/add")

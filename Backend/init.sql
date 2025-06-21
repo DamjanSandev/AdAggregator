@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS interactions
     interaction_id  BIGSERIAL PRIMARY KEY,
     user_username   TEXT        NOT NULL REFERENCES app_users (username) ON DELETE CASCADE,
     ad_id           BIGINT      NOT NULL REFERENCES ads (id) ON DELETE CASCADE,
-    interactionType VARCHAR(12) NOT NULL,
+    interaction_type VARCHAR(12) NOT NULL,
     strength        INT         NOT NULL,
     created_at      TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );

@@ -3,6 +3,7 @@ package adg.backend.service.domain.impl;
 import adg.backend.model.domain.Ad;
 import adg.backend.model.domain.Interaction;
 import adg.backend.model.domain.User;
+import adg.backend.model.enumerations.InteractionType;
 import adg.backend.repository.InteractionRepository;
 import adg.backend.service.domain.InteractionService;
 import org.springframework.stereotype.Service;
@@ -24,13 +25,13 @@ public class InteractionServiceImpl implements InteractionService {
     }
 
     @Override
-    public List<Interaction> findAllByUser(User user) {
-        return interactionRepository.findAllByUser(user);
+    public List<Interaction> findAllByUserAndInteraction(User user, InteractionType interactionType) {
+        return interactionRepository.findAllByUserAndInteraction(user, interactionType);
     }
 
     @Override
-    public List<Interaction> findByUserAndAd(User user, Ad ad) {
-        return interactionRepository.findAllByUserAndAd(user, ad);
+    public Optional<Interaction> findByUserAndAdAndInteraction(User user, Ad ad, InteractionType interactionType) {
+        return interactionRepository.findByUserAndAdAndInteraction(user, ad, interactionType);
     }
 
     @Override
