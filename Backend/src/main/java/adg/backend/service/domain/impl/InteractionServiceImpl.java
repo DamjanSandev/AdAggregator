@@ -38,9 +38,6 @@ public class InteractionServiceImpl implements InteractionService {
         if (interaction.getUser() == null || interaction.getAd() == null) {
             return Optional.empty();
         }
-        //TODO calculate strength through another microservice
-        //interactionRepository.updateStrength(interaction.getUser(),interaction.getAd(),calculatedStrength);
-
         return Optional.of(interactionRepository.save(interaction));
     }
 

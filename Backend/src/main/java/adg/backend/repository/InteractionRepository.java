@@ -16,13 +16,4 @@ public interface InteractionRepository extends JpaRepository<Interaction, Long> 
     List<Interaction> findAllByUserAndAd(User user, Ad ad);
 
     List<Interaction> findAllByUser(User user);
-
-    @Modifying
-    @Query("""
-                update Interaction i
-                   set i.strength = :newStrength
-                 where i.user = :user
-                   and i.ad   = :ad
-            """)
-    void updateStrength(User user, Ad ad, int newStrength);
 }
