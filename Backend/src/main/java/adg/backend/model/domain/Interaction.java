@@ -41,4 +41,11 @@ public class Interaction {
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt = Instant.now();
+
+
+    public Interaction(User user, Ad ad, InteractionType interactionType) {
+        this.user = user;
+        this.ad = ad;
+        this.interactionType = interactionType;
+    }
 }
