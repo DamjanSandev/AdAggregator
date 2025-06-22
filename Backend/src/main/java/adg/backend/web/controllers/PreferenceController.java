@@ -1,12 +1,13 @@
 package adg.backend.web.controllers;
 
 import adg.backend.dto.request.PreferenceRequestBulkDto;
+import adg.backend.dto.response.AdResponseDto;
 import adg.backend.service.application.PreferenceApplicationService;
 import jakarta.transaction.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/preferences")
@@ -16,6 +17,14 @@ public class PreferenceController {
 
     public PreferenceController(PreferenceApplicationService preferenceApplicationService) {
         this.preferenceApplicationService = preferenceApplicationService;
+    }
+
+    @GetMapping("/{username}")
+    public ResponseEntity<List<AdResponseDto>> getUserPreferences(
+//            @AuthenticationPrincipal User user,
+            @PathVariable String username) {
+        return ResponseEntity.ok(this.preferenceApplicationService.getUserPreferenceAds(username));
+
     }
 
     @PostMapping("/bulk")

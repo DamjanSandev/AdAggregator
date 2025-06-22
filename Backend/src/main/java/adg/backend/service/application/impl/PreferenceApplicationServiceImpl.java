@@ -1,6 +1,7 @@
 package adg.backend.service.application.impl;
 
 import adg.backend.dto.request.PreferenceRequestBulkDto;
+import adg.backend.dto.response.AdResponseDto;
 import adg.backend.model.domain.Ad;
 import adg.backend.model.domain.User;
 import adg.backend.model.exceptions.UserNotFoundException;
@@ -40,5 +41,12 @@ public class PreferenceApplicationServiceImpl implements PreferenceApplicationSe
                 .collect(Collectors.toList());
 
         this.preferenceService.bulkWithNewPreferences(user, adds);
+    }
+
+    @Override
+    public List<AdResponseDto> getUserPreferenceAds(String username) {
+        User user = userService.findByUsername(username)
+                .orElseThrow(() -> new UserNotFoundException(username));
+        return AdResponseDto.from(this.preferenceService.getUserPreferences(user));
     }
 }

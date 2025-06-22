@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 @Service
 public class PreferenceServiceImpl implements PreferenceService {
@@ -21,12 +22,15 @@ public class PreferenceServiceImpl implements PreferenceService {
 
     @Override
     public void bulkWithNewPreferences(User user, List<Ad> adds) {
+        this.preferenceRepository.deleteAllByUser(user);
 
         AtomicInteger counter = new AtomicInteger(1);
+        adds.forEach(ad -> this.preferenceRepository.save(new Preference(user, ad, counter.getAndIncrement())));
+    }
 
-        adds.forEach(ad -> {
-            this.preferenceRepository.deleteAllByUser(user);
-            this.preferenceRepository.save(new Preference(user,ad, counter.getAndIncrement()));
-        });
+    @Override
+    public List<Ad> getUserPreferences(User user) {
+        return this.preferenceRepository.findAllByUser(user)
+                .stream().map(Preference::getAd).collect(Collectors.toList());
     }
 }

@@ -29,10 +29,11 @@ public class InteractionListener {
     @EventListener
     public void on(InteractionCreatedEvent evt) {
         Interaction i = evt.getInteraction();
-        if (!STRONG_EVENTS.contains(i.getInteraction_type())) return;
+        if (!STRONG_EVENTS.contains(i.getInteraction_type()))
+            return;
 
         var payload = Map.of(
-                "user",  i.getUser().getUsername(),
+                "user", i.getUser().getUsername(),
                 "ad_id", i.getAd().getId(),
                 "interaction_type", i.getInteraction_type().name(),
                 "strength", i.getStrength()
