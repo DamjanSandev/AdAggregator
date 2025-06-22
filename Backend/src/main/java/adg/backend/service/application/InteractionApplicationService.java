@@ -1,6 +1,6 @@
 package adg.backend.service.application;
 
-import adg.backend.dto.request.InteractionRequestDTO;
+import adg.backend.dto.request.InteractionRequestDto;
 import adg.backend.dto.response.InteractionResponseDto;
 import adg.backend.model.enumerations.InteractionType;
 
@@ -15,7 +15,7 @@ public interface InteractionApplicationService {
 
     Optional<InteractionResponseDto> findByUserAndAdAndInteraction(String userName, Long adId,InteractionType interactionType);
 
-    Optional<InteractionResponseDto> save(InteractionRequestDTO interaction);
+    Optional<InteractionResponseDto> save(InteractionRequestDto interaction);
 
     Optional<InteractionResponseDto> deleteById(Long id);
 }

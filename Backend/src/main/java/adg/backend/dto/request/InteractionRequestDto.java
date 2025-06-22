@@ -5,7 +5,7 @@ import adg.backend.model.domain.Interaction;
 import adg.backend.model.domain.User;
 import adg.backend.model.enumerations.InteractionType;
 
-public record InteractionRequestDTO(
+public record InteractionRequestDto(
         String userUsername,
         Long adId,
         InteractionType interactionType

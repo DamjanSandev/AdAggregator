@@ -1,0 +1,32 @@
+package adg.backend.service.domain.impl;
+
+import adg.backend.model.domain.Ad;
+import adg.backend.model.domain.Preference;
+import adg.backend.model.domain.User;
+import adg.backend.repository.PreferenceRepository;
+import adg.backend.service.domain.PreferenceService;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+
+@Service
+public class PreferenceServiceImpl implements PreferenceService {
+
+    private final PreferenceRepository preferenceRepository;
+
+    public PreferenceServiceImpl(PreferenceRepository preferenceRepository) {
+        this.preferenceRepository = preferenceRepository;
+    }
+
+    @Override
+    public void bulkWithNewPreferences(User user, List<Ad> adds) {
+
+        AtomicInteger counter = new AtomicInteger(1);
+
+        adds.forEach(ad -> {
+            this.preferenceRepository.deleteAllByUser(user);
+            this.preferenceRepository.save(new Preference(user,ad, counter.getAndIncrement()));
+        });
+    }
+}

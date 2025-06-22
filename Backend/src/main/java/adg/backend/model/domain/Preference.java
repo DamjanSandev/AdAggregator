@@ -12,7 +12,6 @@ import java.time.Instant;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @IdClass(Preference.PK.class)
 public class Preference {
 
@@ -39,5 +38,13 @@ public class Preference {
         private Long ad;
         @Serial
         private static final long serialVersionUID = 1L;
+    }
+
+    @Builder
+    public Preference(User user, Ad ad, Integer rank) {
+        this.user = user;
+        this.ad = ad;
+        this.rank = rank;
+        this.generatedAt = Instant.now();
     }
 }

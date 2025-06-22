@@ -47,6 +47,6 @@ public class Interaction {
         this.user = user;
         this.ad = ad;
         this.interaction_type = interactionType;
-        this.strength=interactionType.strength;
+        this.strength = interactionType.strength;
     }
 }

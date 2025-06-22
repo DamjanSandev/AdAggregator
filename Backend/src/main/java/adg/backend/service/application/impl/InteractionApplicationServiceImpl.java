@@ -1,6 +1,6 @@
 package adg.backend.service.application.impl;
 
-import adg.backend.dto.request.InteractionRequestDTO;
+import adg.backend.dto.request.InteractionRequestDto;
 import adg.backend.dto.response.InteractionResponseDto;
 import adg.backend.model.domain.Ad;
 import adg.backend.model.domain.User;
@@ -51,7 +51,7 @@ public class InteractionApplicationServiceImpl implements InteractionApplication
     }
 
     @Override
-    public Optional<InteractionResponseDto> save(InteractionRequestDTO interaction) {
+    public Optional<InteractionResponseDto> save(InteractionRequestDto interaction) {
         User user = userService.findByUsername(interaction.userUsername())
                 .orElseThrow(() -> new UserNotFoundException(interaction.userUsername()));
         Ad ad = adService.findById(interaction.adId())

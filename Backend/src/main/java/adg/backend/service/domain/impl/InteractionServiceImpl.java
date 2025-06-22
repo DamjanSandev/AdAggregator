@@ -1,12 +1,15 @@
 package adg.backend.service.domain.impl;
 
+import adg.backend.events.InteractionCreatedEvent;
 import adg.backend.model.domain.Ad;
 import adg.backend.model.domain.Interaction;
 import adg.backend.model.domain.User;
 import adg.backend.model.enumerations.InteractionType;
 import adg.backend.repository.InteractionRepository;
 import adg.backend.service.domain.InteractionService;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,9 +17,11 @@ import java.util.Optional;
 @Service
 public class InteractionServiceImpl implements InteractionService {
     private final InteractionRepository interactionRepository;
+    private final ApplicationEventPublisher applicationEventPublisher;
 
-    public InteractionServiceImpl(InteractionRepository interactionRepository) {
+    public InteractionServiceImpl(InteractionRepository interactionRepository, ApplicationEventPublisher applicationEventPublisher) {
         this.interactionRepository = interactionRepository;
+        this.applicationEventPublisher = applicationEventPublisher;
     }
 
     @Override
@@ -35,11 +40,14 @@ public class InteractionServiceImpl implements InteractionService {
     }
 
     @Override
+    @Transactional
     public Optional<Interaction> save(Interaction interaction) {
         if (interaction.getUser() == null || interaction.getAd() == null) {
             return Optional.empty();
         }
-        return Optional.of(interactionRepository.save(interaction));
+        Interaction saved = interactionRepository.save(interaction);
+        applicationEventPublisher.publishEvent(new InteractionCreatedEvent(saved));
+        return Optional.of(saved);
     }
 
 

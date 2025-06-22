@@ -1,6 +1,6 @@
 package adg.backend.web.controllers;
 
-import adg.backend.dto.request.InteractionRequestDTO;
+import adg.backend.dto.request.InteractionRequestDto;
 import adg.backend.dto.response.InteractionResponseDto;
 import adg.backend.model.enumerations.InteractionType;
 import adg.backend.service.application.InteractionApplicationService;
@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/interactions")
@@ -41,7 +40,7 @@ public class InteractionController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<InteractionResponseDto> save(@RequestBody InteractionRequestDTO interaction) {
+    public ResponseEntity<InteractionResponseDto> save(@RequestBody InteractionRequestDto interaction) {
         return interactionApplicationService.save(interaction)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.badRequest().build());
