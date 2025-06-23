@@ -1,0 +1,48 @@
+version: '3'
+services:
+  db:
+    image: postgres:latest
+    restart: always
+    env_file:
+      - ./Backend/.env
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./Backend/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./Backend/views.sql:/docker-entrypoint-initdb.d/views.sql
+    ports:
+      - "5432:5432"
+
+  #  frontEnd:
+  #    build: ./Web
+  #    ports:
+  #        - "4200:80"
+
+  spring-backend:
+    build: ./Backend
+    ports:
+      - "9090:9090"
+    env_file:
+      - ./Backend/.env
+    depends_on:
+      - db
+
+  python-scraper:
+    build: ./Scraper
+    ports:
+      - "8001:8001"
+    env_file:
+      - ./Scraper/.env
+    volumes:
+      - ./Scraper:/app
+      - hf_cache:/root/.cache/huggingface
+    environment:
+      - PYTHONUNBUFFERED=1
+    depends_on:
+        - db
+        - spring-backend
+    restart: unless-stopped
+
+volumes:
+  pgdata:
+  hf_cache:
+

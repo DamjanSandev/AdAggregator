@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/AdAggregator.iml" filepath="$PROJECT_DIR$/.idea/AdAggregator.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Backend/Backend.iml" filepath="$PROJECT_DIR$/Backend/Backend.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Scraper/Scraper.iml" filepath="$PROJECT_DIR$/Scraper/Scraper.iml" />
       <module fileurl="file://$PROJECT_DIR$/Web/Web.iml" filepath="$PROJECT_DIR$/Web/Web.iml" />
     </modules>
   </component>

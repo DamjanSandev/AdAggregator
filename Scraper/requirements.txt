@@ -1,0 +1,16 @@
+--extra-index-url https://download.pytorch.org/whl/cpu
+
+transformers==4.41.1
+torch>=2.2.0
+httpx
+apscheduler
+fastapi
+uvicorn[standard]
+python-dotenv
+beautifulsoup4
+protobuf
+lxml
+sqlalchemy>=2.0
+psycopg2-binary
+sentencepiece
+numpy<2
