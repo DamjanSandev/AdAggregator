@@ -3,10 +3,8 @@ services:
   db:
     image: postgres:latest
     restart: always
-    environment:
-      - POSTGRES_DB=db
-      - POSTGRES_USER=project
-      - POSTGRES_PASSWORD=project123
+    env_file:
+      - ./Backend/.env
     volumes:
       - pgdata:/var/lib/postgresql/data
       - ./Backend/init.sql:/docker-entrypoint-initdb.d/init.sql
@@ -22,11 +20,9 @@ services:
   spring-backend:
     build: ./Backend
     ports:
-      - "9090:8080"
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/db
-      SPRING_DATASOURCE_USERNAME: project
-      SPRING_DATASOURCE_PASSWORD: project123
+      - "9090:9090"
+    env_file:
+      - ./Backend/.env
     depends_on:
       - db
 

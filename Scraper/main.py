@@ -2,8 +2,12 @@ from fastapi import FastAPI
 from scheduler import check_new_ads
 from scraper import extract_from_first_n_pages
 from apscheduler.schedulers.background import BackgroundScheduler
+import requests
+
 
 app = FastAPI()
+
+SPRING_BACKEND_URL = "http://spring-backend:9090/api/ads/add"
 
 # if __name__ == "__main__":
 #     import uvicorn
@@ -25,7 +29,28 @@ async def health():
 
 @app.post("/scrape-all")
 async def scrape_all(pages: int = 1):
-    return extract_from_first_n_pages(pages)
+    ads = extract_from_first_n_pages(pages)
+    success_count = 0
+    failed_count = 0
+
+    for ad in ads:
+        try:
+            response = requests.post(SPRING_BACKEND_URL, json=ad)
+            if response.status_code == 200:
+                success_count += 1
+            else:
+                failed_count += 1
+                print(f"Error code: {response.status_code}")
+        except Exception as e:
+            failed_count += 1
+            print(f"Error posting ad: {e}")
+
+    return {
+        "message": f"Scraped {len(ads)} ads",
+        "all ads":ads,
+        "success_count": success_count,
+        "failed_count": failed_count,
+    }
 
 # @app.on_event("startup")
 # def start_scheduler():

@@ -4,5 +4,5 @@ COPY pom.xml .
 COPY src ./src
 RUN mvn clean package -DskipTests
 
-EXPOSE 8080
+EXPOSE 9090
 CMD ["java","-jar","target/Backend-0.0.1-SNAPSHOT.jar"]

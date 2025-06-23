@@ -17,6 +17,7 @@ EXAMPLE_JSON = json.dumps({
     "contact": "078546171"
 }, ensure_ascii=False, indent=2)
 
+
 def build_prompt(desc: str) -> str:
     return (
         "Извлечи ги следните податоци од огласот за автомобил и врати ги како JSON:\n"
@@ -30,13 +31,16 @@ def build_prompt(desc: str) -> str:
         "JSON:"
     )
 
+
 _json_re = re.compile(r"\{.*\}", re.S)
+
 
 def clean_description(text: str) -> str:
     text = re.sub(r"https?://\S+", "", text)
     text = re.sub(r"[^\w\sА-Ша-шЀ-ӿ€.,:/-]", "", text)
     text = re.sub(r"\n{2,}", "\n", text)
     return text.strip()[:800]
+
 
 def _safe_json(text: str) -> Dict[str, Any]:
     match = _json_re.search(text)
@@ -47,8 +51,10 @@ def _safe_json(text: str) -> Dict[str, Any]:
     except json.JSONDecodeError:
         return {"error": "bad-json", "raw_output": text}
 
+
 def _normalize(data: Dict[str, Any]) -> Dict[str, Any]:
     return {k: data.get(k, None) for k in EXPECTED_KEYS}
+
 
 def extract_features(description: str) -> Dict[str, Any]:
     cleaned = clean_description(description)
