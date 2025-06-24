@@ -1,33 +1,51 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { tap } from 'rxjs/operators';
-import { Observable } from 'rxjs';
-import { environment } from '../../environments/environment';
-import { StorageService } from './storage.service';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {tap} from 'rxjs/operators';
+import {Observable} from 'rxjs';
+import {environment} from '../../environments/environment';
+import {StorageService} from './storage.service';
+import {Router} from '@angular/router';
+import {jwtDecode} from 'jwt-decode';
+
 
 interface LoginResponse {
   token: string;
 }
 
-@Injectable({ providedIn: 'root' })
+interface JwtPayload {
+  sub: string;
+  roles: any[];
+  exp: number;
+  iat: number;
+}
+
+@Injectable({providedIn: 'root'})
 export class AuthService {
   private readonly api = `${environment.apiUrl}/user`;
 
   constructor(
     private http: HttpClient,
-    private storage: StorageService
-  ) {}
+    private storage: StorageService,
+    private router: Router
+  ) {
+  }
 
   login(username: string, password: string): Observable<LoginResponse> {
     return this.http
-      .post<LoginResponse>(`${this.api}/login`, { username, password })
+      .post<LoginResponse>(`${this.api}/login`, {username, password})
       .pipe(
-        tap(({ token }) => this.storage.setItem('token', token))
+        tap(({token}) => {
+          this.storage.setItem('token', token);
+          const decoded: JwtPayload = jwtDecode(token);
+          this.storage.setItem('username', decoded.sub);
+          this.storage.setItem('roles', JSON.stringify(decoded.roles));
+        })
       );
   }
 
   logout(): void {
     this.storage.removeItem('token');
+    this.router.navigate(['/login']);
   }
 
   isLoggedIn(): boolean {

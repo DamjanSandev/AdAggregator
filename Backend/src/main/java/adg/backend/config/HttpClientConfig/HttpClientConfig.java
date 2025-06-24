@@ -1,4 +1,4 @@
-package adg.backend.config.security.HttpClientConfig;
+package adg.backend.config.HttpClientConfig;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
