@@ -21,10 +21,14 @@ services:
     build: ./Backend
     ports:
       - "9090:9090"
+      - "5005:5005"
     env_file:
       - ./Backend/.env
     depends_on:
       - db
+    environment:
+      - JAVA_TOOL_OPTIONS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005
+
 
   python-scraper:
     build: ./Scraper

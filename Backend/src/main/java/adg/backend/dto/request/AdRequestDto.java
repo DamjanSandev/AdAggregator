@@ -8,6 +8,7 @@ import lombok.Data;
 import java.util.Date;
 
 public record AdRequestDto(
+        Long id,
         String url,
         String brand,
         String model,

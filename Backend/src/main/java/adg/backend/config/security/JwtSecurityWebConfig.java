@@ -24,10 +24,13 @@ public class JwtSecurityWebConfig {
 
     private final CustomUsernamePasswordAuthenticationProvider authenticationProvider;
     private final JwtFilter jwtFilter;
+    private final String actualScraperKey;
+
 
     public JwtSecurityWebConfig(CustomUsernamePasswordAuthenticationProvider authenticationProvider, JwtFilter jwtFilter) {
         this.authenticationProvider = authenticationProvider;
         this.jwtFilter = jwtFilter;
+        this.actualScraperKey = System.getenv("SCRAPER_SECRET");
     }
 
     @Bean
@@ -35,6 +38,9 @@ public class JwtSecurityWebConfig {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
         corsConfiguration.setAllowedOrigins(List.of("http://localhost:4200"));
         corsConfiguration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
+        corsConfiguration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
+        corsConfiguration.setExposedHeaders(List.of("Authorization"));
+        corsConfiguration.setAllowCredentials(true);
         corsConfiguration.setAllowedHeaders(List.of("*"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", corsConfiguration);
@@ -61,8 +67,16 @@ public class JwtSecurityWebConfig {
                                         "/api/ads/**"
                                 )
                                 .hasAnyRole("USER", "ADMIN")
+                                .requestMatchers("/api/**").access((authentication, context) -> {
+                                    String scraperKey = context.getRequest().getHeader("X-SCRAPER-KEY");
+                                    if (actualScraperKey.equals(scraperKey)) {
+                                        return new org.springframework.security.authorization.AuthorizationDecision(true);
+                                    }
+                                    return new org.springframework.security.authorization.AuthorizationDecision(false);
+                                })
                                 .anyRequest()
                                 .hasRole("ADMIN")
+
                 )
                 .sessionManagement(sessionManagementConfigurer ->
                         sessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS)

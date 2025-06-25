@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 public record AdResponseDto(
+        Long id,
         String brand,
         String model,
         Integer year,
@@ -24,6 +25,7 @@ public record AdResponseDto(
 ) {
     public static AdResponseDto from(Ad ad) {
         return new AdResponseDto(
+                ad.getId(),
                 ad.getBrand(),
                 ad.getModel(),
                 ad.getYear(),

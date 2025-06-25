@@ -5,7 +5,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ed1b54f8-ad10-4efb-8fd0-45304c7bd9a2" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../Backend/.env" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/src/main/java/adg/backend/config/security/JwtSecurityWebConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/src/main/java/adg/backend/config/security/JwtSecurityWebConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/src/main/java/adg/backend/constants/JwtConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/src/main/java/adg/backend/constants/JwtConstants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/src/main/java/adg/backend/dto/request/AdRequestDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/src/main/java/adg/backend/dto/request/AdRequestDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/src/main/java/adg/backend/dto/response/AdResponseDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/src/main/java/adg/backend/dto/response/AdResponseDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/src/main/java/adg/backend/helpers/JwtHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/src/main/java/adg/backend/helpers/JwtHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/src/main/java/adg/backend/web/controllers/AdController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/src/main/java/adg/backend/web/controllers/AdController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Web/src/app/app-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Web/src/app/app-routing.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Web/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Web/src/app/app.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Web/src/app/core/interceptors/jwt-interceptor.interceptor.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Web/src/app/core/interceptors/jwt-interceptor.interceptor.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Web/src/app/core/services/auth.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Web/src/app/core/services/auth.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Web/src/app/core/services/storage.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Web/src/app/core/services/storage.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Web/src/app/features/home/home.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Web/src/app/features/home/home.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Web/src/app/features/login/login.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/../Web/src/app/features/login/login.component.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Web/src/app/features/login/login.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Web/src/app/features/login/login.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../compose.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,23 +63,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "HTTP Request.generated-requests | #1.executor": "Run",
-    "Python.main.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "feature/jwt",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/dsand/IdeaProjects/AdAggregator/Scraper",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;HTTP Request.generated-requests | #1.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature/jwt&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/dsand/IdeaProjects/AdAggregator/Scraper&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Python.main">
     <configuration name="generated-requests | #1" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" executionIdentifier="#1" runType="Run single request">
       <method v="2" />
@@ -126,6 +146,7 @@
       <workItem from="1750340718899" duration="4652000" />
       <workItem from="1750538677103" duration="5000" />
       <workItem from="1750695164460" duration="331000" />
+      <workItem from="1750862976603" duration="1486000" />
     </task>
     <servers />
   </component>

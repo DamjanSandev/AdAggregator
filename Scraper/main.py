@@ -4,9 +4,18 @@ from scraper import extract_from_first_n_pages
 from apscheduler.schedulers.background import BackgroundScheduler
 import requests
 
+import os
+from dotenv import load_dotenv
+
 
 app = FastAPI()
 
+load_dotenv()
+
+SCRAPER_SECRET = os.getenv("SCRAPER_SECRET")
+headers = {
+    "X-SCRAPER-KEY": SCRAPER_SECRET
+}
 SPRING_BACKEND_URL = "http://spring-backend:9090/api/ads/add"
 
 # if __name__ == "__main__":
@@ -35,7 +44,7 @@ async def scrape_all(pages: int = 1):
 
     for ad in ads:
         try:
-            response = requests.post(SPRING_BACKEND_URL, json=ad)
+            response = requests.post(SPRING_BACKEND_URL, json=ad,headers=headers)
             if response.status_code == 200:
                 success_count += 1
             else:

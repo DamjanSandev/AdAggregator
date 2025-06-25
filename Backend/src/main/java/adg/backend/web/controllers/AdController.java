@@ -7,6 +7,7 @@ import adg.backend.model.enumerations.ads.*;
 import adg.backend.service.application.AdApplicationService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -55,7 +56,7 @@ public class AdController {
             @RequestParam(required = false) Integer fromKilometers,
             @RequestParam(required = false) Integer toKilometers,
             @RequestParam(required = false) String enginePower,
-            @RequestParam Pageable pageable
+            @PageableDefault(page = 0, size = 10) Pageable pageable
     ) {
         SearchAdDto searchAdDto = new SearchAdDto(brand, model, fromYear, toYear, fuelType, transmission, bodyType, color, registrationType, emissionType, fromKilometers, toKilometers, enginePower);
         return ResponseEntity.ok(this.adService.findAll(searchAdDto, pageable));
