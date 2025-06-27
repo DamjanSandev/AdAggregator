@@ -57,7 +57,7 @@ public class AdSpecificationBuilder {
             specification = specification.and(greaterThan(Ad.class, "kilometers", searchRequest.fromKilometers()));
         }
         if (searchRequest.toKilometers() != null) {
-            specification = specification.and(lessThan(Ad.class, "kilometers", searchRequest.fromKilometers()));
+            specification = specification.and(lessThan(Ad.class, "kilometers", searchRequest.toKilometers()));
         }
         if (searchRequest.enginePower() != null) {
             specification = specification.and(filterEqualsV(Ad.class, "enginePower", searchRequest.enginePower()));

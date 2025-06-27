@@ -1,0 +1,11 @@
+<div class="ad-list">
+  <app-ad-card
+    *ngFor="let ad of favourites"
+    [ad]="ad.ad"
+    [isInteraction]="true"
+    [interaction]="ad"
+    [isFavorited]="true"
+    (toggleFavorite)="removeFavourite($event)"
+  >
+  </app-ad-card>
+</div>

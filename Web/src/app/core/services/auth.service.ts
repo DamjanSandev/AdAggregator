@@ -43,6 +43,10 @@ export class AuthService {
       );
   }
 
+  register(req: any) {
+    return this.http.post<any>(`${this.api}/register`, req);
+  }
+
   logout(): void {
     this.storage.clear();
     this.router.navigate(['/login']);

@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {environment} from '../../environments/environment';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {AdSearchFilter} from '../../models/AdSearchFilter';
-import {Observable} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import {AdResponse} from '../../models/AdResponse';
 
 @Injectable({
@@ -22,11 +22,10 @@ export class AdService {
         params = params.set(key, value);
       }
     })
-    return this.http.get<any>(`${this.baseUrl}/paginated`, {
-      params,
-      headers: new HttpHeaders({
-        Authorization: `Bearer ${localStorage.getItem('token')}`
-      })
-    });
+    return this.http.get<any>(`${this.baseUrl}/paginated`, {params});
+  }
+
+  getAdById(id: number): Observable<AdResponse> {
+    return this.http.get<AdResponse>(`${this.baseUrl}/${id}`);
   }
 }

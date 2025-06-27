@@ -60,11 +60,14 @@ public class JwtSecurityWebConfig {
                                         "/swagger-ui/**",
                                         "/v3/api-docs/**",
                                         "/api/user/register",
-                                        "/api/user/login"
+                                        "/api/user/login",
+                                        "/api/brands/**",
+                                        "/api/models/**"
                                 )
                                 .permitAll()
                                 .requestMatchers(
-                                        "/api/ads/**"
+                                        "/api/ads/**",
+                                        "/api/interactions/**"
                                 )
                                 .hasAnyRole("USER", "ADMIN")
                                 .requestMatchers("/api/**").access((authentication, context) -> {

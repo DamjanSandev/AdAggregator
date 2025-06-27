@@ -64,3 +64,30 @@
   text-align: center;
   font-size: 0.9rem;
 }
+
+.register-prompt {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.link-btn {
+  display: inline-block;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #007bff;
+  background: none;
+  border: none;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+  text-decoration: none;
+}
+
+.link-btn:hover {
+  background-color: rgba(0, 123, 255, 0.1);
+  color: #0056b3;
+}
+

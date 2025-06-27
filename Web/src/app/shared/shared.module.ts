@@ -1,14 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {PaginationComponent} from './pagination/pagination.component';
+import { CarFilterComponent } from './car-filter/car-filter.component';
+import {ReactiveFormsModule} from '@angular/forms';
 
 
 
 @NgModule({
-  declarations: [PaginationComponent],
+  declarations: [PaginationComponent, CarFilterComponent],
   imports: [
-    CommonModule
+    CommonModule,
+    ReactiveFormsModule
   ],
-  exports:[PaginationComponent]
+  exports: [PaginationComponent, CarFilterComponent]
 })
 export class SharedModule { }

@@ -1,0 +1,69 @@
+<div class="detail-container">
+  <div class="detail-main">
+    <div class="image-carousel">
+      <img [src]="ad?.photoUrl" alt="{{ ad?.brand }} {{ ad?.model }}"/>
+      <button class="carousel-nav prev">‹</button>
+      <button class="carousel-nav next">›</button>
+      <div class="carousel-counter">1/10</div>
+    </div>
+
+    <h1 class="detail-title">
+      {{ ad?.brand }} {{ ad?.model }} {{ ad?.year }}
+    </h1>
+    <div class="detail-price">
+      <!--      {{ ad?.pr | currency:'EUR':'symbol':'1.0-0' }}-->
+    </div>
+
+    <dl class="detail-meta">
+      <div>
+        <dt>Марка:</dt>
+        <dd>{{ ad?.brand }}</dd>
+      </div>
+      <div>
+        <dt>Модел:</dt>
+        <dd>{{ ad?.model }}</dd>
+      </div>
+      <div>
+        <dt>Година:</dt>
+        <dd>{{ ad?.year }}</dd>
+      </div>
+      <div>
+        <dt>Гориво:</dt>
+        <dd>{{ ad?.fuelType }}</dd>
+      </div>
+      <div>
+        <dt>Km:</dt>
+        <dd>{{ ad?.kilometers | number }}</dd>
+      </div>
+      <div>
+        <dt>Менувач:</dt>
+        <dd>{{ ad?.transmission }}</dd>
+      </div>
+      <div>
+        <dt>Каросерија:</dt>
+        <dd>{{ ad?.bodyType }}</dd>
+      </div>
+      <div>
+        <dt>Боја:</dt>
+        <dd>{{ ad?.color }}</dd>
+      </div>
+      <div>
+        <dt>Регистрација до:</dt>
+        <dd>{{ ad?.registeredUntil | date:'MM.yyyy' }}</dd>
+      </div>
+      <div>
+        <dt>Ем. класа:</dt>
+        <dd>{{ ad?.emissionType }}</dd>
+      </div>
+      <div>
+        <dt>Сила (kW/KS):</dt>
+        <dd>{{ ad?.enginePower }}</dd>
+      </div>
+    </dl>
+
+    <section class="detail-desc">
+      <h2>Опис</h2>
+      <p>{{ ad?.description }}</p>
+    </section>
+  </div>
+</div>

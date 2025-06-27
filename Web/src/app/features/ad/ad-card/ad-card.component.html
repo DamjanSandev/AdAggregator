@@ -1,0 +1,25 @@
+<div class="ad-card">
+  <button
+    class="fav-btn"
+    [class.favorited]="isFavorited"
+    (click)="onHeartClick($event)"
+    title="Toggle favorite">
+    ♥
+  </button>
+
+  <div class="ad-content">
+    <div class="ad-text">
+      <h3 (click)="gotoDetails()" style="cursor: pointer">{{ ad.brand }} {{ ad.model }}</h3>
+      <p class="meta">
+        {{ ad.year }} • {{ ad.kilometers | number }} km • {{ ad.fuelType }}
+      </p>
+      <p class="desc">
+        {{ ad.description | slice:0:100 }}
+        <span *ngIf="ad.description.length > 100">…</span>
+      </p>
+    </div>
+    <div class="ad-image">
+      <img [src]="ad.photoUrl" alt="{{ ad.brand }} {{ ad.model }}"/>
+    </div>
+  </div>
+</div>
