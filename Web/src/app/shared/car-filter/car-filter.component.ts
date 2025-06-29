@@ -18,7 +18,7 @@ import {ModelService} from '../../core/services/model.service';
   templateUrl: './car-filter.component.html',
   styleUrl: './car-filter.component.css'
 })
-export class CarFilterComponent implements OnInit{
+export class CarFilterComponent implements OnInit {
   @Output() filterChange = new EventEmitter<AdSearchFilter>();
 
   form: FormGroup;
@@ -54,7 +54,9 @@ export class CarFilterComponent implements OnInit{
       emissionType: [''],
       fromKilometers: [''],
       toKilometers: [''],
-      enginePower: ['']
+      enginePower: [''],
+      fromPrice: [''],
+      toPrice: ['']
     });
   }
 
@@ -63,7 +65,7 @@ export class CarFilterComponent implements OnInit{
 
     this.form.get('brand')!.valueChanges.subscribe(brand => {
       this.models = [];
-      this.form.patchValue({ model: '' });
+      this.form.patchValue({model: ''});
       if (brand) {
         this.modelService.getModelsByBrand(brand)
           .subscribe(ms => this.models = ms);
@@ -71,9 +73,9 @@ export class CarFilterComponent implements OnInit{
     });
 
     this.form.valueChanges.pipe(
-      debounceTime(300)
+      debounceTime(800)
     ).subscribe(val => {
-      const filter: AdSearchFilter = { ...val };
+      const filter: AdSearchFilter = {...val};
       this.filterChange.emit(filter);
     });
   }

@@ -3,6 +3,7 @@ from scraper import extract_from_first_n_pages
 import requests
 import os
 from dotenv import load_dotenv
+from recommender import generate_recommendations
 
 app = FastAPI()
 

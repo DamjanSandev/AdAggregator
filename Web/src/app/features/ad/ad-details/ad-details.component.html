@@ -11,7 +11,7 @@
       {{ ad?.brand }} {{ ad?.model }} {{ ad?.year }}
     </h1>
     <div class="detail-price">
-      <!--      {{ ad?.pr | currency:'EUR':'symbol':'1.0-0' }}-->
+      {{ ad?.price | currency:'EUR':'symbol':'1.0-0' }}
     </div>
 
     <dl class="detail-meta">
