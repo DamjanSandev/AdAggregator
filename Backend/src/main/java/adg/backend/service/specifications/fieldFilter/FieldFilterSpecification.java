@@ -26,12 +26,25 @@ public class FieldFilterSpecification {
         }
         return (root, query, criteriaBuilder) -> criteriaBuilder.greaterThan(fieldToPath(field, (Root<V>) root), value);
     }
+    public static <T, V extends Comparable<V>> Specification<T> greaterThanOrEqual(Class<T> clazz, String field, V value) {
+        if (value == null) {
+            return null;
+        }
+        return (root, query, criteriaBuilder) -> criteriaBuilder.greaterThanOrEqualTo(fieldToPath(field, (Root<V>) root), value);
+    }
 
     public static <T, V extends Comparable<V>> Specification<T> lessThan(Class<T> clazz, String field, V value) {
         if (value == null) {
             return null;
         }
         return (root, query, criteriaBuilder) -> criteriaBuilder.lessThan(fieldToPath(field, (Root<V>) root), value);
+    }
+
+    public static <T, V extends Comparable<V>> Specification<T> lessThanOrEqual(Class<T> clazz, String field, V value) {
+        if (value == null) {
+            return null;
+        }
+        return (root, query, criteriaBuilder) -> criteriaBuilder.lessThanOrEqualTo(fieldToPath(field, (Root<V>) root), value);
     }
 
     public static <T> Specification<T> filterEquals(Class<T> clazz, String field, Long value) {

@@ -1,22 +1,19 @@
 from fastapi import FastAPI
-from scheduler import check_new_ads
 from scraper import extract_from_first_n_pages
-from apscheduler.schedulers.background import BackgroundScheduler
 import requests
-
 import os
 from dotenv import load_dotenv
-
 
 app = FastAPI()
 
 load_dotenv()
 
 SCRAPER_SECRET = os.getenv("SCRAPER_SECRET")
+SPRING_BACKEND_URL = "http://spring-backend:9090/api/ads/add"
 headers = {
     "X-SCRAPER-KEY": SCRAPER_SECRET
 }
-SPRING_BACKEND_URL = "http://spring-backend:9090/api/ads/add"
+
 
 # if __name__ == "__main__":
 #     import uvicorn
@@ -44,7 +41,7 @@ async def scrape_all(pages: int = 1):
 
     for ad in ads:
         try:
-            response = requests.post(SPRING_BACKEND_URL, json=ad,headers=headers)
+            response = requests.post(SPRING_BACKEND_URL, json=ad, headers=headers)
             if response.status_code == 200:
                 success_count += 1
             else:
@@ -56,13 +53,15 @@ async def scrape_all(pages: int = 1):
 
     return {
         "message": f"Scraped {len(ads)} ads",
-        "all ads":ads,
+        "all ads": ads,
         "success_count": success_count,
         "failed_count": failed_count,
     }
 
-# @app.on_event("startup")
-# def start_scheduler():
-#     scheduler = BackgroundScheduler()
-#     scheduler.add_job(check_new_ads, trigger="interval", minutes=15)
-#     scheduler.start()
+
+@app.post("/refresh")
+def refresh_recommendations():
+    try:
+        return generate_recommendations()
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))

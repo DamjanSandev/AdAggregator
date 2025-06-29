@@ -43,17 +43,18 @@ CREATE TABLE IF NOT EXISTS ads
 --     features         TEXT,
 --     contact          TEXT,
     photo_url         TEXT NOT NULL,
+    price             INT  NOT NULL,
     created_at        TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS interactions
 (
-    interaction_id  BIGSERIAL PRIMARY KEY,
-    user_username   TEXT        NOT NULL REFERENCES app_users (username) ON DELETE CASCADE,
-    ad_id           BIGINT      NOT NULL REFERENCES ads (id) ON DELETE CASCADE,
+    interaction_id   BIGSERIAL PRIMARY KEY,
+    user_username    TEXT        NOT NULL REFERENCES app_users (username) ON DELETE CASCADE,
+    ad_id            BIGINT      NOT NULL REFERENCES ads (id) ON DELETE CASCADE,
     interaction_type VARCHAR(12) NOT NULL,
-    strength        INT         NOT NULL,
-    created_at      TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+    strength         INT         NOT NULL,
+    created_at       TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS preferences

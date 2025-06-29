@@ -24,12 +24,13 @@ public record AdRequestDto(
         String enginePower,
         EmissionType emissionType,
         String description,
-        String photoUrl
+        String photoUrl,
+        Integer price
 ) {
     public Ad toAd() {
         return new Ad(url, brand, model, year,
                 fuelType, kilometers, transmission, bodyType,
                 color, registrationType, registeredUntil,
-                enginePower, emissionType, description, photoUrl);
+                enginePower, emissionType, description, photoUrl, price);
     }
 }

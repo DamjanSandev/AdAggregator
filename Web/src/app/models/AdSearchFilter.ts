@@ -12,4 +12,5 @@ export interface AdSearchFilter {
   fromKilometers?: number;
   toKilometers?: number;
   enginePower?: string;
+  price?: number;
 }

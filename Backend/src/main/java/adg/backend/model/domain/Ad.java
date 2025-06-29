@@ -68,10 +68,14 @@ public class Ad {
     @Column(name = "photo_url", nullable = false, length = 512)
     private String photoUrl;
 
+    @Column(name = "price", updatable = true, nullable = false)
+    private Integer price;
+
     @Column(name = "created_at", updatable = false)
     private Instant createdAt = Instant.now();
 
-    public Ad(String url, String brand, String model, Integer year, FuelType fuelType, Integer kilometers, TransmissionType transmission, BodyType bodyType, String color, RegistrationType registrationType, Date registeredUntil, String enginePower, EmissionType emissionType, String description, String photoUrl) {
+    public Ad(String url, String brand, String model, Integer year, FuelType fuelType, Integer kilometers, TransmissionType transmission, BodyType bodyType, String color,
+              RegistrationType registrationType, Date registeredUntil, String enginePower, EmissionType emissionType, String description, String photoUrl, Integer price) {
         this.url = url;
         this.brand = brand;
         this.model = model;
@@ -87,5 +91,6 @@ public class Ad {
         this.emissionType = emissionType;
         this.description = description;
         this.photoUrl = photoUrl;
+        this.price = price;
     }
 }

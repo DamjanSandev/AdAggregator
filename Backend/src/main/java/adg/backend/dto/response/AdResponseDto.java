@@ -21,7 +21,8 @@ public record AdResponseDto(
         String enginePower,
         EmissionType emissionType,
         String description,
-        String photoUrl
+        String photoUrl,
+        Integer price
 ) {
     public static AdResponseDto from(Ad ad) {
         return new AdResponseDto(
@@ -39,7 +40,8 @@ public record AdResponseDto(
                 ad.getEnginePower(),
                 ad.getEmissionType(),
                 ad.getDescription(),
-                ad.getPhotoUrl()
+                ad.getPhotoUrl(),
+                ad.getPrice()
         );
     }
 

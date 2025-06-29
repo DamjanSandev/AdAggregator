@@ -19,7 +19,8 @@ export interface AdResponse {
   enginePower: string,
   emissionType: EmissionType,
   description: string,
-  photoUrl: string
+  photoUrl: string,
+  price: number
 }
 
 

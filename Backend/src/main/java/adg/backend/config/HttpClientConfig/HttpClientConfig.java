@@ -9,7 +9,7 @@ public class HttpClientConfig {
     @Bean
     WebClient recommenderClient() {
         return WebClient.builder()
-                .baseUrl("http://recommender:8004")
+                .baseUrl("http://python-scraper:8001")
                 .defaultHeader("Content-Type", "application/json")
                 .build();
     }

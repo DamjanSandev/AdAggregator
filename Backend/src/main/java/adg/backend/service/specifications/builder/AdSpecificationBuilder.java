@@ -22,11 +22,11 @@ public class AdSpecificationBuilder {
         }
 
         if (searchRequest.fromYear() != null) {
-            specification = specification.and(greaterThan(Ad.class, "year", searchRequest.fromYear()));
+            specification = specification.and(greaterThanOrEqual(Ad.class, "year", searchRequest.fromYear()));
         }
 
         if (searchRequest.toYear() != null) {
-            specification = specification.and(lessThan(Ad.class, "year", searchRequest.toYear()));
+            specification = specification.and(lessThanOrEqual(Ad.class, "year", searchRequest.toYear()));
         }
 
         if (searchRequest.fuelType() != null) {
@@ -54,13 +54,21 @@ public class AdSpecificationBuilder {
         }
 
         if (searchRequest.fromKilometers() != null) {
-            specification = specification.and(greaterThan(Ad.class, "kilometers", searchRequest.fromKilometers()));
+            specification = specification.and(greaterThanOrEqual(Ad.class, "kilometers", searchRequest.fromKilometers()));
         }
         if (searchRequest.toKilometers() != null) {
-            specification = specification.and(lessThan(Ad.class, "kilometers", searchRequest.fromKilometers()));
+            specification = specification.and(lessThanOrEqual(Ad.class, "kilometers", searchRequest.fromKilometers()));
         }
         if (searchRequest.enginePower() != null) {
             specification = specification.and(filterEqualsV(Ad.class, "enginePower", searchRequest.enginePower()));
+        }
+
+        if (searchRequest.fromPrice() != null) {
+            specification = specification.and(greaterThanOrEqual(Ad.class, "price", searchRequest.fromPrice()));
+        }
+
+        if (searchRequest.toPrice() != null) {
+            specification = specification.and(lessThanOrEqual(Ad.class, "price", searchRequest.toPrice()));
         }
 
         return specification;

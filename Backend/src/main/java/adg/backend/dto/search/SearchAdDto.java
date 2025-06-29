@@ -16,6 +16,8 @@ public record SearchAdDto(
         EmissionType emissionType,
         Integer fromKilometers,
         Integer toKilometers,
-        String enginePower
+        String enginePower,
+        Integer fromPrice,
+        Integer toPrice
 ) {
 }
