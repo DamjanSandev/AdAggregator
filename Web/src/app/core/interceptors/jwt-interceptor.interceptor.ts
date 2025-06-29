@@ -11,7 +11,6 @@ import {StorageService} from '../services/storage.service';
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
   constructor(private storage: StorageService) {
-    console.log('JWT Interceptor initialized');
   }
 
   intercept(
@@ -23,9 +22,6 @@ export class JwtInterceptor implements HttpInterceptor {
     const authReq = token
       ? req.clone({setHeaders: {Authorization: `Bearer ${token}`}})
       : req;
-
-    console.log('Interceptor attached token:', token);
-    console.log('Final request headers:', authReq.headers);
     return next.handle(authReq);
   }
 }

@@ -1,0 +1,98 @@
+.detail-container {
+  display: flex;
+  gap: 2rem;
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.detail-main {
+  flex: 2;
+}
+
+.image-carousel {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.image-carousel img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.carousel-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.7);
+  border: none;
+  padding: 0.5rem 1rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.carousel-nav.prev {
+  left: 0.5rem;
+}
+
+.carousel-nav.next {
+  right: 0.5rem;
+}
+
+.carousel-counter {
+  position: absolute;
+  bottom: 0.5rem;
+  left: 0.5rem;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  padding: 0.2rem 0.5rem;
+  border-radius: 3px;
+  font-size: 0.9rem;
+}
+
+.detail-title {
+  font-size: 1.75rem;
+  margin: 0.5rem 0;
+}
+
+.detail-price {
+  font-size: 1.5rem;
+  color: #004481;
+  margin-bottom: 1.5rem;
+}
+
+.detail-meta {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem 2rem;
+  margin-bottom: 2rem;
+}
+
+.detail-meta dt {
+  font-weight: bold;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.detail-meta dd {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.detail-desc h2 {
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 0.3rem;
+}
+
+.detail-desc p {
+  line-height: 1.6;
+  color: #444;
+}

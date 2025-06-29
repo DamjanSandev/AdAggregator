@@ -66,5 +66,19 @@ CREATE TABLE IF NOT EXISTS preferences
     PRIMARY KEY (user_username, ad_id)
 );
 
+CREATE TABLE IF NOT EXISTS brands
+(
+    id   BIGSERIAL PRIMARY KEY,
+    name TEXT NOT NULL UNIQUE
+);
+
+CREATE TABLE IF NOT EXISTS models
+(
+    id       BIGSERIAL PRIMARY KEY,
+    name     TEXT   NOT NULL,
+    brand_id BIGINT NOT NULL REFERENCES brands (id) ON DELETE CASCADE
+);
+
 CREATE INDEX IF NOT EXISTS idx_interactions_user ON interactions (user_username);
 CREATE INDEX IF NOT EXISTS idx_interactions_ad ON interactions (ad_id);
+CREATE INDEX IF NOT EXISTS idx_models_brand ON models (brand_id);

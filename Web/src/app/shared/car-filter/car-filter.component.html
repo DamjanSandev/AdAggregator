@@ -1,0 +1,79 @@
+<form [formGroup]="form" class="filter-form">
+  <div class="field">
+    <label for="brand">Brand</label>
+    <select id="brand" formControlName="brand">
+      <option value="">Any</option>
+      <option *ngFor="let b of brands" [value]="b.name">{{ b.name }}</option>
+    </select>
+  </div>
+  <div class="field">
+    <label for="model">Model</label>
+    <select id="model" formControlName="model" [disabled]="!models.length">
+      <option value="">Any</option>
+      <option *ngFor="let m of models" [value]="m.name">{{ m.name }}</option>
+    </select>
+  </div>
+  <div class="field">
+    <label for="fromYear">Year From</label>
+    <input id="fromYear" type="number" formControlName="fromYear" placeholder="2000" />
+  </div>
+  <div class="field">
+    <label for="toYear">Year To</label>
+    <input id="toYear" type="number" formControlName="toYear" placeholder="2025" />
+  </div>
+  <div class="field empty"></div>
+
+  <div class="field">
+    <label for="fuelType">Fuel</label>
+    <select id="fuelType" formControlName="fuelType">
+      <option value="">Any</option>
+      <option *ngFor="let ft of fuelTypes" [value]="ft">{{ fuelTypeLabels[ft] }}</option>
+    </select>
+  </div>
+  <div class="field">
+    <label for="transmission">Trans.</label>
+    <select id="transmission" formControlName="transmission">
+      <option value="">Any</option>
+      <option *ngFor="let tt of transmissionTypes" [value]="tt">{{ transmissionTypeLabels[tt] }}</option>
+    </select>
+  </div>
+  <div class="field">
+    <label for="bodyType">Body</label>
+    <select id="bodyType" formControlName="bodyType">
+      <option value="">Any</option>
+      <option *ngFor="let bt of bodyTypes" [value]="bt">{{ bodyTypeLabels[bt] }}</option>
+    </select>
+  </div>
+  <div class="field">
+    <label for="color">Color</label>
+    <input id="color" type="text" formControlName="color" placeholder="e.g. Red" />
+  </div>
+  <div class="field empty"></div>
+
+  <div class="field">
+    <label for="registrationType">Reg.</label>
+    <select id="registrationType" formControlName="registrationType">
+      <option value="">Any</option>
+      <option *ngFor="let rt of registrationTypes" [value]="rt">{{ registrationTypeLabels[rt] }}</option>
+    </select>
+  </div>
+  <div class="field">
+    <label for="emissionType">Emission</label>
+    <select id="emissionType" formControlName="emissionType">
+      <option value="">Any</option>
+      <option *ngFor="let et of emissionTypes" [value]="et">{{ emissionTypeLabels[et] }}</option>
+    </select>
+  </div>
+  <div class="field">
+    <label for="fromKilometers">Km From</label>
+    <input id="fromKilometers" type="number" formControlName="fromKilometers" placeholder="0" />
+  </div>
+  <div class="field">
+    <label for="toKilometers">Km To</label>
+    <input id="toKilometers" type="number" formControlName="toKilometers" placeholder="200k" />
+  </div>
+  <div class="field">
+    <label for="enginePower">Power</label>
+    <input id="enginePower" type="text" formControlName="enginePower" placeholder="1.4 TSI" />
+  </div>
+</form>

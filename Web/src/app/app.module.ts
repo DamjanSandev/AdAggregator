@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule, provideClientHydration} from '@angular/platform-browser';
-import {FormsModule} from '@angular/forms';
-import {HTTP_INTERCEPTORS, provideHttpClient} from '@angular/common/http';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule, provideHttpClient} from '@angular/common/http';
 
 import {AppComponent} from './app.component';
 import {AppRoutingModule} from './app-routing.module';
@@ -10,6 +10,10 @@ import {HomeComponent} from './features/home/home.component';
 import {ForbiddenComponent} from './features/forbidden/forbidden.component';
 import {AdModule} from './features/ad/ad.module';
 import {JwtInterceptor} from './core/interceptors/jwt-interceptor.interceptor';
+import {NavbarComponent} from './features/navbar/navbar.component';
+import {AppLayoutComponent} from './features/layouts/app-layout/app-layout.component';
+import {AuthLayoutComponent} from './features/layouts/auth-layout/auth-layout.component';
+import {RegisterComponent} from './features/register/register.component';
 
 @NgModule({
   declarations: [
@@ -17,19 +21,25 @@ import {JwtInterceptor} from './core/interceptors/jwt-interceptor.interceptor';
     LoginComponent,
     HomeComponent,
     ForbiddenComponent,
+    NavbarComponent,
+    AppLayoutComponent,
+    AuthLayoutComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    AdModule
+    AdModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [
-    provideHttpClient(),
-    provideClientHydration(),
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}
   ],
-  exports: [],
+  exports: [
+    NavbarComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

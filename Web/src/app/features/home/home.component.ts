@@ -9,11 +9,6 @@ import {AuthService} from "../../core/services/auth.service";
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-  constructor(private authService: AuthService) {
+  constructor() {
   }
-
-  logout() {
-    this.authService.logout();
-  }
-
 }

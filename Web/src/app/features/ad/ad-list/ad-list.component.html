@@ -1,18 +1,21 @@
-<div class="ad-list">
-  <div *ngFor="let ad of ads" class="ad-card">
-    <div class="ad-content">
-      <div class="ad-text">
-        <h3>{{ ad.brand }} {{ ad.model }}</h3>
-        <p>{{ ad.year }} • {{ ad.kilometers }} km • {{ ad.fuelType }}</p>
-        <p>{{ ad.description }}</p>
-      </div>
-      <img [src]="ad.photoUrl" alt="Car image" />
-    </div>
+<div class="ads-container">
+  <div class="filter-container">
+    <app-car-filter (filterChange)="filter($event)"></app-car-filter>
   </div>
 
-  <app-pagination
-    [totalPages]="totalPages"
-    [currentPage]="currentPage"
-    (pageChange)="onPageChange($event)">
-  </app-pagination>
+  <div class="ad-list">
+    <app-ad-card
+      *ngFor="let ad of ads"
+      [ad]="ad"
+      [isFavorited]="isFavorite(ad)"
+      (toggleFavorite)="toggleFavorite($event)"
+    >
+    </app-ad-card>
+
+    <app-pagination
+      [totalPages]="totalPages"
+      [currentPage]="currentPage"
+      (pageChange)="onPageChange($event)">
+    </app-pagination>
+  </div>
 </div>
