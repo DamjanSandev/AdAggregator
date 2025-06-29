@@ -15,6 +15,7 @@ import {AppLayoutComponent} from './features/layouts/app-layout/app-layout.compo
 import {AuthLayoutComponent} from './features/layouts/auth-layout/auth-layout.component';
 import {RegisterComponent} from './features/register/register.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,7 +33,7 @@ import {RegisterComponent} from './features/register/register.component';
     AppRoutingModule,
     AdModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}

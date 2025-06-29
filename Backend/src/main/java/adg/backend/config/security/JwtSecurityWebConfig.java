@@ -56,6 +56,10 @@ public class JwtSecurityWebConfig {
                 )
                 .authorizeHttpRequests(authorizeHttpRequestsCustomizer ->
                         authorizeHttpRequestsCustomizer
+                                .requestMatchers(request -> {
+                                    String key = request.getHeader("X-SCRAPER-KEY");
+                                    return actualScraperKey.equals(key);
+                                }).permitAll()
                                 .requestMatchers(
                                         "/swagger-ui/**",
                                         "/v3/api-docs/**",
@@ -67,16 +71,10 @@ public class JwtSecurityWebConfig {
                                 .permitAll()
                                 .requestMatchers(
                                         "/api/ads/**",
-                                        "/api/interactions/**"
+                                        "/api/interactions/**",
+                                        "/api/preferences/**"
                                 )
                                 .hasAnyRole("USER", "ADMIN")
-                                .requestMatchers("/api/**").access((authentication, context) -> {
-                                    String scraperKey = context.getRequest().getHeader("X-SCRAPER-KEY");
-                                    if (actualScraperKey.equals(scraperKey)) {
-                                        return new org.springframework.security.authorization.AuthorizationDecision(true);
-                                    }
-                                    return new org.springframework.security.authorization.AuthorizationDecision(false);
-                                })
                                 .anyRequest()
                                 .hasRole("ADMIN")
 

@@ -8,7 +8,14 @@ import numpy as np
 import requests
 import os
 
+
 BACKEND_PREF_ENDPOINT = "http://spring-backend:9090/api/preferences/bulk"
+SCRAPER_SECRET = os.getenv("SCRAPER_SECRET")
+
+headers = {
+    "X-SCRAPER-KEY": SCRAPER_SECRET
+}
+
 
 def generate_recommendations():
     session = SessionLocal()
@@ -19,13 +26,15 @@ def generate_recommendations():
             return {"status": "skipped", "message": "No ads found in DB"}
 
         inter_query = session.execute(
-            text("SELECT user_username, ad_id, strength FROM interactions WHERE event_type IN ('VIEW', 'CLICK', 'FAV')")
+            text(
+                "SELECT user_username, ad_id, strength FROM interactions WHERE interaction_type IN ('VIEW', 'CLICK', 'FAV')")
         )
         inter_df = pd.DataFrame(inter_query.fetchall(), columns=["user", "ad_id", "strength"])
         if inter_df.empty:
             return {"status": "skipped", "message": "No user interactions yet"}
 
-        features = ["brand", "model", "fuel_type", "transmission", "body_type","emission_type", "engine_power", "year", "kilometers", "price"]
+        features = ["brand", "model", "fuel_type", "transmission", "body_type", "emission_type", "engine_power", "year",
+                    "kilometers", "price"]
         transformer = ColumnTransformer([
             ("cat", OneHotEncoder(handle_unknown="ignore"), features[:6]),
             ("num", MinMaxScaler(), features[6:])
@@ -60,14 +69,29 @@ def generate_recommendations():
             rec_ads = [idx_to_id[i] for i in ranked if i not in seen][:10]
             user_recommendations[user] = rec_ads
 
+        successes = 0
+        failures = {}
 
-        payload = [
-            {"user": user, "adIds": ad_ids}
-            for user, ad_ids in user_recommendations.items()
-        ]
+        for user, ad_ids in user_recommendations.items():
+            payload = {
+                "user": user,
+                "adIds": ad_ids
+            }
+            resp = requests.post(
+                BACKEND_PREF_ENDPOINT,
+                json=payload,
+                headers=headers
+            )
+            if resp.ok:
+                successes += 1
+            else:
+                failures[user] = resp.status_code
 
-        res = requests.post(BACKEND_PREF_ENDPOINT, json=payload)
-        return {"status": "ok", "sent": len(payload), "springResponse": res.status_code}
+        return {
+            "status": "ok",
+            "sent": successes,
+            "errors": failures
+        }
 
     finally:
         session.close()

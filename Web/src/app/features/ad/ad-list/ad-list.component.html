@@ -1,5 +1,17 @@
 <div class="ads-container">
-  <div class="filter-container">
+
+  <nav class="subnav">
+    <button
+      [class.active]="isActive('ads')"
+      (click)="selectTab('ads')">Ads
+    </button>
+    <button
+      [class.active]="isActive('recommended')"
+      (click)="selectTab('recommended')">Recommended
+    </button>
+  </nav>
+
+  <div *ngIf="view === 'ads'" class="filter-container">
     <app-car-filter (filterChange)="filter($event)"></app-car-filter>
   </div>
 
@@ -13,6 +25,7 @@
     </app-ad-card>
 
     <app-pagination
+      *ngIf="view === 'ads'"
       [totalPages]="totalPages"
       [currentPage]="currentPage"
       (pageChange)="onPageChange($event)">

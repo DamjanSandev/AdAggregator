@@ -1,21 +1,35 @@
 .ads-container {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
   padding: 1rem;
-  gap: 1.5rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.subnav {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.subnav button {
+  background: none;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+}
+
+.subnav button.active {
+  border-color: #007bff;
+  font-weight: bold;
 }
 
 .filter-container {
-  width: 100%;
-  max-width: 600px;
+  margin-bottom: 1.5rem;
 }
 
 .ad-list {
-  width: 100%;
-  max-width: 600px;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1rem;
 }
-

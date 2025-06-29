@@ -21,7 +21,10 @@ export class InteractionService {
   }
 
   addFavorite(request: InteractionRequest): Observable<InteractionResponse> {
-    request.interactionType = 'FAV';
+    return this.http.post<InteractionResponse>(`${this.base}/add`, request, {});
+  }
+
+  addClick(request: InteractionRequest): Observable<InteractionResponse> {
     return this.http.post<InteractionResponse>(`${this.base}/add`, request, {});
   }
 

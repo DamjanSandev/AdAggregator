@@ -3,7 +3,6 @@ from bs4 import BeautifulSoup
 from extractor import extract_features
 from datetime import datetime
 
-
 BASE_DOMAIN = "https://reklama5.mk"
 BASE_URL = "https://reklama5.mk/Search?city=&cat=24&q="
 LISTING_LINKS = ".SearchAdTitle"
@@ -77,8 +76,10 @@ BODY_TYPE_MAP = {
 def normalize_enum_type(mk_value: str, enum_map: dict) -> str:
     return enum_map.get(mk_value.strip(), "UNKNOWN")
 
+
 def normalize_numeric(val: str) -> int:
     return int(val.replace(".", "").replace(",", "").strip())
+
 
 def normalize_registered_until(raw: str) -> str:
     raw = raw.strip()
@@ -92,6 +93,7 @@ def normalize_registered_until(raw: str) -> str:
     except ValueError:
         return raw
 
+
 def get_ad_urls(page: int = 1) -> list[str]:
     resp = requests.get(f"{BASE_URL}&page={page}")
     resp.raise_for_status()
@@ -100,8 +102,9 @@ def get_ad_urls(page: int = 1) -> list[str]:
 
 
 def normalize_price(val: str) -> int:
-    val = val.replace(".", "").replace("€", "").strip()
+    val = val.replace(".", "").replace("€", "").replace("МКД", "").strip()
     return int(val)
+
 
 def parse_price(soup: BeautifulSoup) -> int | None:
     price_el = soup.select_one(PRICE_SELECTOR)

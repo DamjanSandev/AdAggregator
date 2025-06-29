@@ -5,8 +5,10 @@ import {StorageService} from '../../../core/services/storage.service';
 import {AdResponse} from '../../../models/AdResponse';
 import {AdSearchFilter} from '../../../models/AdSearchFilter';
 import {InteractionRequest} from '../../../models/InteractionRequest';
+import {PreferenceService} from '../../../core/services/preference.service';
 
-;
+type ViewTab = 'ads' | 'recommended';
+
 
 @Component({
   selector: 'app-ad-list',
@@ -20,11 +22,13 @@ export class AdListComponent implements OnInit {
   currentPage = 0;
   filters: AdSearchFilter = {};
   favorites = new Map<number, number>();
+  view: ViewTab = 'ads';
 
   constructor(
     private adService: AdService,
     private interactionService: InteractionService,
-    private storage: StorageService
+    private storage: StorageService,
+    private preferenceService: PreferenceService
   ) {
   }
 
@@ -81,5 +85,41 @@ export class AdListComponent implements OnInit {
       this.interactionService.addFavorite(req)
         .subscribe(resp => this.favorites.set(ad.id, resp.id));
     }
+  }
+
+  selectTab(tab: ViewTab) {
+    this.view = tab;
+    switch (tab) {
+      case 'ads':
+        this.loadAds();
+        break;
+      case 'recommended':
+        this.loadRecommended();
+        break;
+    }
+  }
+
+  loadRecommended() {
+    const username = this.storage.getItem<string>('username');
+    if (!username) {
+      this.ads = [];
+      return;
+    }
+    this.preferenceService.getUserRecommendations(username)
+      .subscribe({
+        next: (response) => {
+          this.ads = response;
+          this.totalPages = 1;
+          this.currentPage = 0;
+        },
+        error: (error) => {
+          this.ads = [];
+          console.error('Error loading recommendations:', error);
+        }
+      });
+  }
+
+  isActive(tab: ViewTab) {
+    return this.view === tab;
   }
 }

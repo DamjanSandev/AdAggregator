@@ -36,8 +36,10 @@ public class AdController {
                                                        @RequestParam(required = false) EmissionType emissionType,
                                                        @RequestParam(required = false) Integer fromKilometers,
                                                        @RequestParam(required = false) Integer toKilometers,
-                                                       @RequestParam(required = false) String enginePower) {
-        SearchAdDto searchAdDto = new SearchAdDto(brand, model, fromYear, toYear, fuelType, transmission, bodyType, color, registrationType, emissionType, fromKilometers, toKilometers, enginePower);
+                                                       @RequestParam(required = false) String enginePower,
+                                                       @RequestParam(required = false) Integer fromPrice,
+                                                       @RequestParam(required = false) Integer toPrice) {
+        SearchAdDto searchAdDto = new SearchAdDto(brand, model, fromYear, toYear, fuelType, transmission, bodyType, color, registrationType, emissionType, fromKilometers, toKilometers, enginePower, fromPrice, toPrice);
         return ResponseEntity.ok(this.adService.findAll(searchAdDto));
     }
 
@@ -56,9 +58,11 @@ public class AdController {
             @RequestParam(required = false) Integer fromKilometers,
             @RequestParam(required = false) Integer toKilometers,
             @RequestParam(required = false) String enginePower,
+            @RequestParam(required = false) Integer fromPrice,
+            @RequestParam(required = false) Integer toPrice,
             @PageableDefault(page = 0, size = 10) Pageable pageable
     ) {
-        SearchAdDto searchAdDto = new SearchAdDto(brand, model, fromYear, toYear, fuelType, transmission, bodyType, color, registrationType, emissionType, fromKilometers, toKilometers, enginePower);
+        SearchAdDto searchAdDto = new SearchAdDto(brand, model, fromYear, toYear, fuelType, transmission, bodyType, color, registrationType, emissionType, fromKilometers, toKilometers, enginePower, fromPrice, toPrice);
         return ResponseEntity.ok(this.adService.findAll(searchAdDto, pageable));
     }
 
