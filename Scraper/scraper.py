@@ -3,7 +3,6 @@ from bs4 import BeautifulSoup
 from extractor import extract_features
 from datetime import datetime
 
-
 BASE_DOMAIN = "https://reklama5.mk"
 BASE_URL = "https://reklama5.mk/Search?city=&cat=24&q="
 LISTING_LINKS = ".SearchAdTitle"
@@ -14,6 +13,7 @@ PHOTO_SELECTOR = ".ad-image-preview-table img"
 DESCRIPTION_SELECTOR = ("body > div.container.body-content > "
                         "div:nth-child(7) > div.row.mt-2 > div > div > div.card-body.px-0 > div:nth-child(4) "
                         "> div.col-8 > p:nth-child(3)")
+PRICE_SELECTOR = "h5.mb-0.defaultBlue"
 
 FIELD_MAP = {
     "марка": "brand",
@@ -80,6 +80,7 @@ def normalize_enum_type(mk_value: str, enum_map: dict) -> str:
 def normalize_numeric(val: str) -> int:
     return int(val.replace(".", "").replace(",", "").strip())
 
+
 def normalize_registered_until(raw: str) -> str:
     raw = raw.strip()
     try:
@@ -92,11 +93,27 @@ def normalize_registered_until(raw: str) -> str:
     except ValueError:
         return raw
 
+
 def get_ad_urls(page: int = 1) -> list[str]:
     resp = requests.get(f"{BASE_URL}&page={page}")
     resp.raise_for_status()
     soup = BeautifulSoup(resp.text, "lxml")
     return [BASE_DOMAIN + a["href"] for a in soup.select(LISTING_LINKS)]
+
+
+def normalize_price(val: str) -> int:
+    val = val.replace(".", "").replace("€", "").replace("МКД", "").strip()
+    return int(val)
+
+
+def parse_price(soup: BeautifulSoup) -> int | None:
+    price_el = soup.select_one(PRICE_SELECTOR)
+    if price_el:
+        try:
+            return normalize_price(price_el.get_text())
+        except Exception as e:
+            print(f"Failed to parse price: {e}")
+    return None
 
 
 def parse_structured_fields(soup: BeautifulSoup) -> dict:
@@ -173,6 +190,11 @@ def fetch_and_extract_features(ad_url: str) -> dict:
     soup = BeautifulSoup(resp.text, "lxml")
 
     fields = {"url": ad_url}
+
+    price = parse_price(soup)
+    if price is not None:
+        fields["price"] = price
+
     fields.update(parse_structured_fields(soup))
 
     description = extract_description(soup)
